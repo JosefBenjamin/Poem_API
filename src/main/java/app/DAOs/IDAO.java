@@ -8,4 +8,6 @@ public interface IDAO<Entity, DTO, ID> {
 
      Entity update(Entity entity);
 
+     Entity getById(ID id);
+
 }
