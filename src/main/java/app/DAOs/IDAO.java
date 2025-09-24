@@ -10,7 +10,7 @@ public interface IDAO<Entity,  ID> {
 
      Entity update(Entity entity);
 
-     Entity getById(ID id);
+     Entity findById(ID id);
 
      List<Entity> getAll();
 }

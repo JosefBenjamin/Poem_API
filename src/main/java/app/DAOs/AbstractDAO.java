@@ -41,7 +41,7 @@ public abstract class AbstractDAO<Entity, ID> implements IDAO<Entity, ID>{
         return entity;
     }
 
-    public Entity getById(ID id){
+    public Entity findById(ID id){
         try(EntityManager em = emf.createEntityManager()) {
             String jpql = "SELECT FROM " + entityClass.getSimpleName() + " a WHERE a.id = :id";
             return em.createQuery(jpql, entityClass)

@@ -1,6 +1,4 @@
 package app.config;
-
-
 import app.entities.Poem;
 import app.utils.Utils;
 import jakarta.persistence.EntityManagerFactory;
