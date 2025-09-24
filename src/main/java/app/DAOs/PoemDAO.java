@@ -1,0 +1,12 @@
+package app.DAOs;
+import app.entities.*;
+import app.DTOs.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+
+public class PoemDAO extends AbstractDAO<Poem, PoemDTO, Integer> implements IDAO<Poem, PoemDTO, Integer> {
+
+    public PoemDAO(EntityManagerFactory emf) {
+        super(emf);
+    }
+}

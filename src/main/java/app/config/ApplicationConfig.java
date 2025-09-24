@@ -3,6 +3,7 @@ package app.config;
 import app.routes.Routes;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
+import jakarta.persistence.EntityManagerFactory;
 
 public class ApplicationConfig {
     private static Routes routes = new Routes();
@@ -16,7 +17,7 @@ public class ApplicationConfig {
 
     public static Javalin startServer(int port) {
         routes = new Routes();
-        var app = Javalin.create(ApplicationConfig::configuration);
+        Javalin app = Javalin.create(ApplicationConfig::configuration);
         app.start(port);
         return app;
     }

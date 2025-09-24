@@ -7,14 +7,15 @@ import java.util.List;
 
 public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
 
-    protected static EntityManagerFactory emf;
-    protected Class<Entity> entityClass;
+    public static EntityManagerFactory emf;
+    public  Class<Entity> entityClass;
 
     AbstractDAO(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
-    public Entity create(Entity entity) {
+    @Override
+    public  Entity create(Entity entity) {
        try (EntityManager em = emf.createEntityManager()) {
            em.getTransaction().begin();
            em.persist(entity);
@@ -23,6 +24,7 @@ public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
        return entity;
     }
 
+    @Override
     public void delete(ID id) {
         try(EntityManager em = emf.createEntityManager()) {
             String jpql = "DELETE FROM " + entityClass.getSimpleName() + " a WHERE a.id = :id";
@@ -32,6 +34,7 @@ public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
         }
     }
 
+    @Override
     public Entity update(Entity entity) {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
@@ -43,7 +46,10 @@ public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
 
     public Entity getById(ID id){
         try(EntityManager em = emf.createEntityManager()) {
-            return em.find(entityClass, id);
+            String jpql = "SELECT FROM " + entityClass.getSimpleName() + " a WHERE a.id = :id";
+            return em.createQuery(jpql, entityClass)
+                    .setParameter("id",id)
+                    .getSingleResult();
         }
     }
 
