@@ -3,6 +3,8 @@ import app.DTOs.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
+import java.util.List;
+
 public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
 
     public static EntityManagerFactory emf;
@@ -48,6 +50,13 @@ public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
             return em.createQuery(jpql, entityClass)
                     .setParameter("id",id)
                     .getSingleResult();
+        }
+    }
+
+    public List<Entity> getAll(){
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT a FROM "+entityClass.getSimpleName()+" a";
+            return em.createQuery(jpql).getResultList();
         }
     }
 }
