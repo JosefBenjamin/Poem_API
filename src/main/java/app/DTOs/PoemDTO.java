@@ -8,7 +8,7 @@ public record PoemDTO() {
     static String poem;
     static String style;
 
-    public static PoemDTO convertToDTO(Poem poem){
+    public PoemDTO convertToDTO(Poem poem){
         PoemDTO result = new PoemDTO();
         result.id = poem.getId();
         result.title = poem.getTitle();
