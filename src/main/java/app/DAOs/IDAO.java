@@ -2,7 +2,7 @@ package app.DAOs;
 
 import java.util.List;
 
-public interface IDAO<Entity, DTO, ID> {
+public interface IDAO<Entity,  ID> {
 
      Entity create(Entity entity);
 
@@ -10,9 +10,7 @@ public interface IDAO<Entity, DTO, ID> {
 
      Entity update(Entity entity);
 
-     Entity getById(ID id);
+     Entity findById(ID id);
 
-    Entity getById(ID id);
-
-    List<Entity> getAll();
+     List<Entity> getAll();
 }

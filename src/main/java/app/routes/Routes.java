@@ -17,7 +17,7 @@ public class Routes {
             path("/poems", () -> {
                 get("/{id}", ctx -> {
                     Integer id = Integer.parseInt(ctx.pathParam("id"));
-                    Poem poem = poemDAO.getById(id);
+                    Poem poem = poemDAO.findById(id);
                     ctx.json(poem);
                 });
             });

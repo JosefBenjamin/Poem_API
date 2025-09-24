@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 import java.util.List;
 
-public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
+public abstract class AbstractDAO<Entity, ID> implements IDAO<Entity, ID>{
 
     public static EntityManagerFactory emf;
     public  Class<Entity> entityClass;
@@ -14,8 +14,7 @@ public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
         this.emf = emf;
     }
 
-    @Override
-    public  Entity create(Entity entity) {
+    public Entity create(Entity entity) {
        try (EntityManager em = emf.createEntityManager()) {
            em.getTransaction().begin();
            em.persist(entity);
@@ -24,7 +23,6 @@ public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
        return entity;
     }
 
-    @Override
     public void delete(ID id) {
         try(EntityManager em = emf.createEntityManager()) {
             String jpql = "DELETE FROM " + entityClass.getSimpleName() + " a WHERE a.id = :id";
@@ -34,7 +32,6 @@ public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
         }
     }
 
-    @Override
     public Entity update(Entity entity) {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
@@ -44,7 +41,7 @@ public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
         return entity;
     }
 
-    public Entity getById(ID id){
+    public Entity findById(ID id){
         try(EntityManager em = emf.createEntityManager()) {
             String jpql = "SELECT FROM " + entityClass.getSimpleName() + " a WHERE a.id = :id";
             return em.createQuery(jpql, entityClass)
@@ -54,9 +51,9 @@ public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
     }
 
     public List<Entity> getAll(){
-        try (EntityManager em = emf.createEntityManager()) {
-            String jpql = "SELECT a FROM "+entityClass.getSimpleName()+" a";
-            return em.createQuery(jpql).getResultList();
+        try(EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT a FROM " + entityClass.getSimpleName() + " a";
+            return em.createQuery(jpql, entityClass).getResultList();
         }
     }
 }
