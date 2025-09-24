@@ -3,6 +3,7 @@ package app.config;
 import app.routes.Routes;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
+import jakarta.persistence.EntityManagerFactory;
 
 public class ApplicationConfig {
     private static Routes routes = new Routes();
