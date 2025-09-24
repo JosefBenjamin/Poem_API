@@ -16,7 +16,7 @@ public class ApplicationConfig {
 
     public static Javalin startServer(int port) {
         routes = new Routes();
-        var app = Javalin.create(ApplicationConfig::configuration);
+        Javalin app = Javalin.create(ApplicationConfig::configuration);
         app.start(port);
         return app;
     }
