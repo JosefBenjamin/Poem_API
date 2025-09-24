@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 import java.util.List;
 
-public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
+public abstract class AbstractDAO<Entity, ID> implements IDAO<Entity, ID>{
 
     public static EntityManagerFactory emf;
     public  Class<Entity> entityClass;
@@ -14,7 +14,7 @@ public class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO, ID>{
         this.emf = emf;
     }
 
-    public  Entity create(Entity entity) {
+    public Entity create(Entity entity) {
        try (EntityManager em = emf.createEntityManager()) {
            em.getTransaction().begin();
            em.persist(entity);

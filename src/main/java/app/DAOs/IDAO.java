@@ -2,7 +2,7 @@ package app.DAOs;
 
 import java.util.List;
 
-public interface IDAO<Entity, DTO, ID> {
+public interface IDAO<Entity,  ID> {
 
      Entity create(Entity entity);
 
