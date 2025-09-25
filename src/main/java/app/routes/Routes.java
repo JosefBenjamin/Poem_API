@@ -20,8 +20,7 @@ public class Routes {
     public EndpointGroup getRoutes() {
         return () -> {
             get("/", ctx -> ctx.result("Hello World"));
-            path("/poems", () -> {
-                get("/{id}", ctx -> {
+                get("/poem/{id}", ctx -> {
                     Integer id = Integer.parseInt(ctx.pathParam("id"));
                     Poem poem = poemDAO.findById(id);
                     ctx.json(poem);
@@ -38,7 +37,4 @@ public class Routes {
 
                 });
         };
-    }
-
-
 }
