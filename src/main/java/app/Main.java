@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        ApplicationConfig.startServer(7096);
+        // ApplicationConfig.startServer(7096);
         // Initialize Javalin
         Javalin app = Javalin.create(config -> {
             config.showJavalinBanner = false; // Disable default Javalin banner
