@@ -23,13 +23,22 @@ public abstract class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO ,
      * @param entity The entity object to be persisted
      * @return The created entity with any generated values (like ID)
      */
-    public Entity create(Entity entity) {
+    public Entity createEntity(Entity entity) {
        try (EntityManager em = emf.createEntityManager()) {
            em.getTransaction().begin();
            em.persist(entity);
            em.getTransaction().commit();
        }
        return entity;
+    }
+
+    public DTO createDTO(DTO dto){
+        try(EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            em.persist(dto);
+            em.getTransaction().commit();
+        }
+        return dto;
     }
 
     /**

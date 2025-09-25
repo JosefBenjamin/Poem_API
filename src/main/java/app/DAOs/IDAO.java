@@ -4,7 +4,9 @@ import java.util.List;
 
 public interface IDAO<Entity, DTO,  ID> {
 
-     Entity create(Entity entity);
+     Entity createEntity(Entity entity);
+
+     DTO createDTO(DTO dot);
 
      void delete(ID id);
 
