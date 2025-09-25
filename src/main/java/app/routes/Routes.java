@@ -17,7 +17,7 @@ public class Routes {
     private PoemDAO poemDAO;
 
 
-    public EndpointGroup getRoutes() {
+    public EndpointGroup getRoutes(PoemDAO poemDAO) {
         return () -> {
             get("/", ctx -> ctx.result("Hello World"));
                 get("/poem/{id}", ctx -> {
@@ -44,6 +44,28 @@ public class Routes {
                 ctx.json(poemDTO);
             });
 
+            post("/poems", ctx -> {
+                // Modtag og konverter en liste af digte (fra json til dto)
+                PoemDTO[] poemDTOS = ctx.bodyAsClass(PoemDTO[].class);
+                // Gem alle digtene i databasen (dao) og modtag en liste af de nye digte
+                List<PoemDTO> newPoemDTOs = poemDAO.createFromList(poemDTOS);
+                ctx.status(HttpStatus.CREATED);
+                ctx.json(newPoemDTOs);
+            });
+
+                post("/poem", ctx -> {
+                PoemDTO poemDTO = ctx.bodyAsClass(PoemDTO.class);
+                PoemDTO newPoemDTO = poemDAO.createDTO(poemDTO);
+                ctx.status(HttpStatus.CREATED);
+                ctx.json(newPoemDTO);
+            });
+
+                delete("/poem/{id}", ctx -> {
+                        int id = Integer.parseInt(ctx.pathParam("id"));
+                        poemDAO.delete(id);
+                        ctx.result("deleted: " + id);
+                    });
         };
+
     }
 }

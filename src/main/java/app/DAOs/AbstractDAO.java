@@ -3,6 +3,7 @@ import app.DTOs.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO ,ID>{
@@ -47,6 +48,7 @@ public abstract class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO ,
      */
     public void delete(ID id) {
         try(EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
             String jpql = "DELETE FROM " + entityClass.getSimpleName() + " a WHERE a.id = :id";
             em.createQuery(jpql).setParameter("id",id)
                     .executeUpdate();
@@ -114,4 +116,14 @@ public abstract class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO ,
             return em.createQuery(jpql, entityClass).getResultList();
         }
     }
+
+    public List<DTO> createFromList(DTO[] poemDTOS) {
+        List<DTO> poemDTOList = new ArrayList<>();
+        for (int index = 0; index < poemDTOS.length ; index++) {
+            DTO newPoemDTO = createDTO(poemDTOS[index]);
+            poemDTOList.add(newPoemDTO);
+        }
+        return poemDTOList;
+    }
+
 }

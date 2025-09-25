@@ -33,10 +33,5 @@ public class Poem {
         this.style = style;
     }
 
-    public Poem convertToEntity(PoemDTO dto){
-        return new Poem(dto);
-    }
 
-    public PoemDTO convertToDTO(Poem x) {
-    }
 }
