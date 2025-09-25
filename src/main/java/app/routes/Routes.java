@@ -34,8 +34,16 @@ public class Routes {
                                             .collect(Collectors.toList());
                 ctx.status(HttpStatus.OK);
                 ctx.json(listOfDTOs);
-
                 });
+
+            put("/poem/{id}", ctx -> {
+                int id = Integer.parseInt(ctx.pathParam("id"));
+                PoemDTO poemDTO = ctx.bodyAsClass(PoemDTO.class);
+                poemDTO = poemDAO.updateDTO(id, poemDTO);
+                ctx.status(HttpStatus.OK);
+                ctx.json(poemDTO);
+            });
+
         };
     }
 }
