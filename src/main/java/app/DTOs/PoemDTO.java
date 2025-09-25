@@ -17,6 +17,14 @@ public record PoemDTO() {
         return result;
     }
 
+    public Poem convertToEntity(){
+        Poem result = new Poem();
+        result.setId(this.id);
+        result.setTitle(this.title);
+        result.setPoem(this.poem);
+        result.setStyle(this.style);
+        return result;
+    }
     public Integer getId(){
         return id;
     }

@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 import java.util.List;
 
-public abstract class AbstractDAO<Entity, ID> implements IDAO<Entity, ID>{
+public abstract class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO ,ID>{
 
     public static EntityManagerFactory emf;
     public Class<Entity> entityClass;
@@ -50,14 +50,36 @@ public abstract class AbstractDAO<Entity, ID> implements IDAO<Entity, ID>{
      * @param entity The entity object with updated values
      * @return The updated entity
      */
-    public Entity update(Entity entity) {
+    public Entity updateEntity(ID id, Entity entity) {
+        Entity result;
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
-            em.merge(entity);
+            Entity existingEntity = em.find(entityClass, id);
+
+            if(existingEntity == null){
+                throw new RuntimeException("Entity with id " + id + " not found");
+            }
+
+            result = em.merge(entity);
             em.getTransaction().commit();
         }
-        return entity;
+        return result;
     }
+
+    public DTO updateDTO(ID id, DTO dto) {
+        DTO result;
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            Entity existingEntity = em.find(entityClass, id);
+            if(existingEntity == null){
+                throw new RuntimeException("Entity with id " + id + " not found");
+            }
+            result = em.merge(dto);
+            em.getTransaction().commit();
+        }
+        return result;
+    }
+
 
     /**
      * Finds and retrieves a single entity from the database by its ID
