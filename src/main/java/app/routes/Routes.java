@@ -25,7 +25,7 @@ public class Routes {
                     Poem poem = poemDAO.findById(id);
                     ctx.json(poem);
                 });
-            });
+
             get("/poems", ctx ->{
                 List<Poem> listOfPoems = poemDAO.getAll();
                 List <PoemDTO> listOfDTOs = listOfPoems.stream()
@@ -37,4 +37,5 @@ public class Routes {
 
                 });
         };
+    }
 }
