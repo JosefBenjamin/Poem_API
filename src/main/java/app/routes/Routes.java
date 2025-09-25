@@ -1,9 +1,15 @@
 package app.routes;
 import app.DAOs.PoemDAO;
+import app.DTOs.PoemDTO;
 import app.entities.Poem;
 import io.javalin.apibuilder.EndpointGroup;
 import static io.javalin.apibuilder.ApiBuilder.*;
+
+import io.javalin.http.HttpStatus;
 import jakarta.persistence.EntityManagerFactory;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Routes {
 
@@ -21,9 +27,16 @@ public class Routes {
                     ctx.json(poem);
                 });
             });
-            // get("/", ctx -> ctx.result("Hello World"));
-            // path("/highscores", highscoresRoutes.getRoutes());
-            // path("/highscore", highscoreRoutes.getRoutes());
+            get("/poems", ctx ->{
+                List<Poem> listOfPoems = poemDAO.getAll();
+                List <PoemDTO> listOfDTOs = listOfPoems.stream()
+                        .map((x) ->   new PoemDTO()
+                                            .convertToDTO(x))
+                                            .collect(Collectors.toList());
+                ctx.status(HttpStatus.OK);
+                ctx.json(listOfDTOs);
+
+                });
         };
     }
 

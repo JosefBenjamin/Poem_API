@@ -36,4 +36,7 @@ public class Poem {
     public Poem convertToEntity(PoemDTO dto){
         return new Poem(dto);
     }
+
+    public PoemDTO convertToDTO(Poem x) {
+    }
 }
