@@ -15,11 +15,8 @@ public class Main {
     private static final Logger debugLogger = LoggerFactory.getLogger("app");
 
     public static void main(String[] args) {
-
-
-
-
-        // ApplicationConfig.startServer(7096);
+        
+         ApplicationConfig.startServer(7096);
         // Initialize Javalin
         Javalin app = Javalin.create(config -> {
             config.showJavalinBanner = false; // Disable default Javalin banner
