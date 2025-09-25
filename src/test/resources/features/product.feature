@@ -1,6 +1,8 @@
-Description:
-An API call is made to fetch the details of a user with ID 456. The request is successful, and the API returns the user’s name as “Alice.”
+Feature: Search for a product
 
-Task:
-Convert this description into a Gherkin test case.
+    Scenario:
+        Given a user goes to (domain)/search?=smartphone by typing in smartpone in search box
+        When the user clicks the search button
+        Then the user is redirected to endpoint results
+
 
