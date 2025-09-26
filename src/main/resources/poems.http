@@ -10,13 +10,16 @@ Accept: application/json
 DELETE {{url}}/poem/3
 
 ### UPDATE
-PUT  {{url}}/poem/3
+PUT {{url}}/poem/3
+Content-Type: application/json
+Accept: application/json
 
- {
-    "title": "Summers's first soft snow",
-    "poem": "Summers's first soft snow, Blankets fields in quiet white, Footsteps lost below.",
-    "style": "Poetry Slam"
-  }
+{
+  "title": "Summers's first soft snow",
+  "poem": "Summers's first soft snow, Blankets fields in quiet white, Footsteps lost below.",
+  "style": "Poetry Slam"
+}
+
 
 ### POST example
 POST {{url}}/poem

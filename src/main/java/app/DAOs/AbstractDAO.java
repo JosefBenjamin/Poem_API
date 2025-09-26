@@ -15,8 +15,9 @@ public abstract class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO ,
      * Constructor that initializes the AbstractDAO with the EntityManagerFactory
      * @param emf EntityManagerFactory used for database operations
      */
-    AbstractDAO(EntityManagerFactory emf) {
+    AbstractDAO(EntityManagerFactory emf, Class<Entity> entityClass) {
         this.emf = emf;
+        this.entityClass = entityClass;
     }
 
     /**
@@ -99,10 +100,7 @@ public abstract class AbstractDAO<Entity, DTO, ID> implements IDAO<Entity, DTO ,
      */
     public Entity findById(ID id){
         try(EntityManager em = emf.createEntityManager()) {
-            String jpql = "SELECT FROM " + entityClass.getSimpleName() + " a WHERE a.id = :id";
-            return em.createQuery(jpql, entityClass)
-                    .setParameter("id",id)
-                    .getSingleResult();
+            return em.find(entityClass, id); // simplest, no exception on missing
         }
     }
 
