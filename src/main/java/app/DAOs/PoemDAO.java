@@ -7,7 +7,7 @@ import jakarta.persistence.EntityManagerFactory;
 public class PoemDAO extends AbstractDAO<Poem, PoemDTO, Integer>{
 
     public PoemDAO(EntityManagerFactory emf) {
-        super(emf);
+        super(emf, Poem.class);
     }
     
 }
